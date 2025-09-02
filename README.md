@@ -21,65 +21,85 @@ It is used for **developing, testing, deploying, and interacting** with smart co
 ### 🔨 Build Contracts  
 ```bash
 forge build
-
+```
 🧪 Run Tests
+```
 forge test
+```
 
 🎨 Format Code
+```
 forge fmt
+```
 
 ⛽ Gas Snapshot
+```
 forge snapshot
+```
 
 🌐 Start Local Blockchain
+```
 anvil
-
+```
 
 👉 Runs local node at http://127.0.0.1:8545 with 10 funded accounts.
 
 📤 Deploy Contract
+```
 forge create ContractName \
   --rpc-url http://127.0.0.1:8545 \
   --private-key <YOUR_PRIVATE_KEY>
 
+OR
+forge script script/DeploySimpleStorage.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast
+```
+
 📡 Interacting with Smart Contracts (Cast)
 ✍️ Write (Send TX)
+```
 cast send <CONTRACT_ADDRESS> "store(uint256)" 123 \
   --rpc-url http://127.0.0.1:8545 \
   --private-key <YOUR_PRIVATE_KEY>
+```
 
 📖 Read (Call Function → Hex)
+```
 cast call <CONTRACT_ADDRESS> "retrieve()" \
   --rpc-url http://127.0.0.1:8545
-
+```
 
 Output example:
-
+```
 0x7b
-
+```
 🔢 Convert Hex → Decimal
+```
 cast --to-base 0x7b dec
-# Output: 123
 
+# Output: 123
+```
 🔐 Bonus: Secure Keystore (No raw private key)
 
 Instead of using --private-key everywhere, store your key securely:
 
 Import Keystore
+```
 cast wallet import myAccount --interactive
-
+```
 
 → Enter your private key & set a password (encrypted keystore).
 
 Use Secure Account
+```
 cast send <CONTRACT_ADDRESS> "store(uint256)" 321 \
   --rpc-url http://127.0.0.1:8545 \
   --account myAccount
-
+```
 Read + Convert
+```
 cast call <CONTRACT_ADDRESS> "retrieve()" --rpc-url http://127.0.0.1:8545
 cast --to-base 0x141 dec   # 0x141 = 321
-
+```
 ✅ Final Secure Workflow
 
 anvil → start blockchain
